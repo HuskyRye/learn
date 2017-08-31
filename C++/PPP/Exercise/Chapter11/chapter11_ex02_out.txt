@@ -1,0 +1,11 @@
+   1 | txt2html/HTML::TextToHTML Sample Conversion
+   4 | by Seth Golub for txt2html.
+  10 |      --system_link_dict txt2html.dict
+  11 |      --append_body sample.foot --infile sample.txt --outfile sample.html
+  15 | 	perl -MHTML::TextToHTML -e run_txt2html -- *options*
+  19 | 	txt2html *options*
+  25 | 	$conv->txt2html([*options*]);
+  39 | BtC> Can you post an example text file with its html'ed output?
+ 139 |    things such as linking the word txt2html the first time it appeared.
+ 150 |  * Also with XHTML!  Turn on the --xhtml option and it will ensure that
+ 304 | html here
