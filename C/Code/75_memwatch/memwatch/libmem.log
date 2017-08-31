@@ -1,0 +1,38 @@
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Tue Jul 25 10:06:56 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 19.10
+
+
+Stopped at Tue Jul 25 10:06:58 2017
+
+unfreed: <1> e:\c\code\75_memwatch\memwatch\main.c(7), 100 bytes at 013489B0  	{FE FE FE FE FE FE FE FE FE FE FE FE FE FE FE FE ................}
+
+Memory usage statistics (global):
+ N)umber of allocations made: 1
+ L)argest memory usage      : 100
+ T)otal of all alloc() calls: 100
+ U)nfreed bytes totals      : 100
+MEMWATCH detected 1 anomalies
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Tue Jul 25 10:08:14 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 19.10
+
+
+Stopped at Tue Jul 25 10:08:15 2017
+
+
+Memory usage statistics (global):
+ N)umber of allocations made: 1
+ L)argest memory usage      : 100
+ T)otal of all alloc() calls: 100
+ U)nfreed bytes totals      : 0
