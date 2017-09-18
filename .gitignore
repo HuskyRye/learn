@@ -6,11 +6,8 @@
 # Visual Studio files
 *.opensdf
 *.sdf
-*.sln
 *.suo
-*.vcxproj
 *.vcxproj.user
-*.filters
 **/Debug
 **/Release
 **/.vs
