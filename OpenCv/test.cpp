@@ -8,7 +8,7 @@ using namespace cv;
 
 int main() {
 	// read an image
-	Mat image = imread("avatar.jpg");
+	Mat image = imread("tiger.jpg");
 	// create image window
 	namedWindow("My First OpenCv programe");
 	// show the image on window
