@@ -4,26 +4,16 @@
 */
 
 #include <opencv2/opencv.hpp>
-using namespace std;
+using namespace cv;
 
 int main() {
-	const char* ImageName = "avatar.jpg";
-	const char* WindowsTitle = "My first OpenCv programe";
-
-	// 读取图象
-	IplImage* Image = cvLoadImage(ImageName, CV_LOAD_IMAGE_UNCHANGED);
-
-	// 创建窗口
-	cvNamedWindow(WindowsTitle);
-
-	// 在指定窗口显示图片
-	cvShowImage(WindowsTitle, Image);
-
-	// 等待按钮事件
-	cvWaitKey();
-
-	cvDestroyWindow(WindowsTitle);
-	cvReleaseImage(&Image);
+	// read an image
+	Mat image = imread("avatar.jpg");
+	// create image window
+	namedWindow("My First OpenCv programe");
+	// show the image on window
+	imshow("My First OpenCv programe", image);
+	waitKey(5000);
 	return 0;
 }
 
