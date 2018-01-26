@@ -9,15 +9,16 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
 	if (argc != 3) {
-		cout << "usage: flip.exe source.jpg result.jpg";
-		return 1;
+		cout << "Usage: flip_image ImageToFlip PathToSave";
+		return -1;
 	}
 	cv::Mat image = cv::imread(argv[1]);
-	if (image.data == NULL) {
-		cout << "fail to open " << argv[1];
-		return 2;
+	if (image.empty()) {
+		cout << "Could not open or find " << argv[1];
+		return -1;
 	}
 	cv::Mat result;
 	cv::flip(image, result, 1);
 	cv::imwrite(argv[2], result);
+	return 0;
 }
