@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="2.2.color_reduce.cpp">
+    <ClCompile Include="3_sharpen.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
