@@ -83,6 +83,34 @@ void colorReduce3(const cv::Mat& image, cv::Mat& result, int div = 64)
 	}
 }
 
+void colorReduce(cv::Mat& image, int div = 64)
+{
+	int rows = image.rows;
+	int cols = image.cols;
+	if (image.isContinuous()) {
+		cols = cols * rows;
+		rows = 1;
+	}
+	int n = log(div)/log(2);
+	// mask used to round the pixel value
+	uchar mask = 0xFF<<n;	// e.g. for div = 16, mask = 0xF0
+	for (int i = 0; i < rows; ++i) {
+		uchar* data = image.ptr<uchar>(i);
+		for (int j = 0; j < cols; ++j) {
+			*data = (*data&mask) + div/2;
+			data++;
+			*data = (*data&mask) + div/2;
+			data++;
+			*data = (*data&mask) + div/2;
+			data++;
+			/*	
+			Dangerous, not recommended
+			*data++ = *data&mask + div/2;
+			*/
+		}
+	}
+}
+
 int main()
 {
 	cv::Mat image = cv::imread("boldt.jpg");
@@ -101,10 +129,15 @@ int main()
 	cv::namedWindow("Color reduce 2");
 	cv::imshow("Color reduce 2", result);
 
-	image = cv::imread("boldt.jpg");
 	colorReduce3(image, result, 128);
 	cv::namedWindow("Color reduce 3");
 	cv::imshow("Color reduce 3", result);
+
+	image = cv::imread("boldt.jpg");
+	colorReduce(image, 128);
+	cv::namedWindow("Color reduce");
+	cv::imshow("Color reduce", image);
+	cv::imwrite("color_reduce.jpg", image);
 
 	cv::waitKey(10000);
 	return 0;
