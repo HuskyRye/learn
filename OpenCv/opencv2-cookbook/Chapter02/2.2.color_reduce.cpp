@@ -8,8 +8,25 @@
 
 using namespace std;
 
+// using at and []
+void colorReduce0(cv::Mat& image, int div = 64)
+{
+	int line = image.rows;
+	int columns = image.cols;
+	for (int i = 0; i < line; ++i) {
+		for (int j = 0; j < columns; ++j) {
+			image.at<cv::Vec3b>(i, j)[0] =
+				image.at<cv::Vec3b>(i, j)[0]/div*div + div/2;
+			image.at<cv::Vec3b>(i, j)[1] =
+				image.at<cv::Vec3b>(i, j)[1]/div*div + div/2;
+			image.at<cv::Vec3b>(i, j)[2] =
+				image.at<cv::Vec3b>(i, j)[2]/div*div + div/2;
+		}
+	}
+}
+
 // using .ptr and []
-void colorReduce1(cv::Mat &image, int div = 64)
+void colorReduce1(cv::Mat& image, int div = 64)
 {
 	int lines = image.rows;
 	int channels = image.cols*image.channels();
@@ -69,9 +86,14 @@ void colorReduce3(const cv::Mat& image, cv::Mat& result, int div = 64)
 int main()
 {
 	cv::Mat image = cv::imread("boldt.jpg");
+	colorReduce0(image, 16);
+	cv::namedWindow("Color reduce 0");
+	cv::imshow("Color reduce 0", image);
+
+	image = cv::imread("boldt.jpg");
 	colorReduce1(image, 32);
-	cv::namedWindow("Color reduce");
-	cv::imshow("Color reduce", image);
+	cv::namedWindow("Color reduce 1");
+	cv::imshow("Color reduce 1", image);
 
 	image = cv::imread("boldt.jpg");
 	cv::Mat result;
