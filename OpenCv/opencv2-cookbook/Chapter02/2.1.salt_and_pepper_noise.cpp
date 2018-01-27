@@ -1,6 +1,6 @@
 /*
 	Date: 2018.1.26
-	Author: Áõ³¼Ðù
+	Author: åˆ˜è‡£è½©
 */
 
 #include <iostream>
@@ -11,8 +11,8 @@ using namespace std;
 void salt(cv::Mat& image, int n)
 {
 	for (int k = 0; k < n; ++k) {
-		int i = rand()%image.rows;		// row-ÐÐ
-		int j = rand()%image.cols;		// column-ÁÐ
+		int i = rand()%image.rows;		// row-è¡Œ
+		int j = rand()%image.cols;		// column-åˆ—
 
 		// gray-level image
 		if (image.channels() == 1) {
