@@ -29,17 +29,35 @@ void sharpen(const cv::Mat& image, cv::Mat& result)
 	result.col(result.cols-1).setTo(cv::Scalar(0));
 }
 
+void sharpen2D(const cv::Mat& image, cv::Mat& result)
+{
+	// construct kernel (all entires initialized to 0)
+	cv::Mat kernel(3, 3, CV_32F, cv::Scalar(0));
+	/*	the kernel of the sharpening filter
+		0  -1	0
+	   -1   5  -1
+		0  -1	0
+	*/
+	kernel.at<float>(1, 1) = 5.0;
+	kernel.at<float>(0, 1) = -1.0;
+	kernel.at<float>(2, 1) = -1.0;
+	kernel.at<float>(1, 0) = -1.0;
+	kernel.at<float>(1, 2) = -1.0;
+
+	cv::filter2D(image, result, image.depth(), kernel);
+}
+
 int main()
 {
 	// convert image to the single channel grayscale image
 	cv::Mat image = cv::imread("boldt.jpg", 0);
 	cv::Mat result;
-	sharpen(image, result);
+	sharpen2D(image, result);
 	cv::namedWindow("boldt.jpg");
 	cv::imshow("boldt.jpg", image);
-	cv::namedWindow("sharpen.jpg");
-	cv::imshow("sharpen.jpg", result);
-	cv::imwrite("sharpen.jpg", result);
+	cv::namedWindow("sharpen2D.jpg");
+	cv::imshow("sharpen2D.jpg", result);
+	cv::imwrite("sharpen2D.jpg", result);
 	cv::waitKey(5000);
 	return 0;
 }
