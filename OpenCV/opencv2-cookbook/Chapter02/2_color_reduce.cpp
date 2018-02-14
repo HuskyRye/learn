@@ -103,7 +103,7 @@ void colorReduce(cv::Mat& image, int div = 64)
 			data++;
 			*data = (*data&mask) + div/2;
 			data++;
-			/*	
+			/*
 			Dangerous, not recommended
 			*data++ = *data&mask + div/2;
 			*/
