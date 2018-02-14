@@ -3,17 +3,11 @@
 *.out
 *.app
 
-# Visual Studio files
-*.opensdf
-*.sdf
-*.suo
-*.vcxproj.user
-**/Debug
-**/Release
-**/.vs
-
-**/stroustrup-ppp-cn
-**/.vscode
-
 *.zip
 *.rar
+
+# Cmake
+build/
+
+# Dolphin
+.directory
