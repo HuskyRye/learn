@@ -1,10 +1,5 @@
 # Executables
-*.exe
 *.out
-*.app
-
-*.zip
-*.rar
 
 # Cmake
 build/
