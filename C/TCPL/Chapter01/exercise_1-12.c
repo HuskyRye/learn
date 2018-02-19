@@ -11,12 +11,10 @@ int main()
 		if ((c == ' ' || c == '\t' || c == '\n') && state == IN) {
 			state = OUT;
 			putchar('\n');
-		}
-		else if (state == OUT) {
+		} else if (state == OUT) {
 			state = IN;
 			putchar(c);
-		}
-		else
+		} else
 			putchar(c);
 	}
 }
