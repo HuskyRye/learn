@@ -8,7 +8,7 @@ int main()
     int upper = 160;
     int step = 20;
 
-    printf("Celsius-Fahrenheit table\n");
+    printf("Celsius to Fahrenheit table\n");
 
     celsius = lower;
     while (celsius <= upper) {
