@@ -3,11 +3,10 @@
 int main()
 {
     float fahr, celsius;
-    int lower, upper, step;
 
-    lower = -20;
-    upper = 160;
-    step = 20;
+    int lower = -20;
+    int upper = 160;
+    int step = 20;
 
     printf("Celsius-Fahrenheit table\n");
 
