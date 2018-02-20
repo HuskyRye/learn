@@ -1,3 +1,8 @@
+/*
+	Date: 2018.2.19
+	Author: 刘臣轩
+*/
+
 #include <stdio.h>
 
 #define MAXCOL 10

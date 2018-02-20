@@ -1,3 +1,8 @@
+/*
+	Date: 2018.2.20
+	Author: 刘臣轩
+*/
+
 #include <stdio.h>
 
 void in_comment();
