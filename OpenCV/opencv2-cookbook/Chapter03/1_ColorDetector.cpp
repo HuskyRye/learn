@@ -1,3 +1,8 @@
+/*
+	Date: 2018.2.20
+	Author: 刘臣轩
+*/
+
 #include "1_ColorDetector.h"
 
 cv::Mat ColorDetector::process(const cv::Mat& image)

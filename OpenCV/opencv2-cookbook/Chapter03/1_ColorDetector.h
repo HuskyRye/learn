@@ -1,3 +1,8 @@
+/*
+	Date: 2018.2.20
+	Author: 刘臣轩
+*/
+
 #pragma once
 
 #include <opencv2/opencv.hpp>
