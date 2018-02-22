@@ -15,16 +15,22 @@ int main()
 {
     printf("%d", -128 % 10);
     char s[100];
+
     itoa(0, s);
     printf("itoa(0, s), %s\n", s);
+
     itoa(123, s);
     printf("itoa(123, s), %s\n", s);
+
     itoa(INT_MAX, s);
     printf("itoa(INT_MAX, s), %s\n", s);
+
     itoa(-123, s);
     printf("itoa(-123, s), %s\n", s);
+
     itoa(INT_MIN, s);
     printf("itoa(INT_MIN, s), %s\n", s);
+
     return 0;
 }
 
