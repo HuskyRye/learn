@@ -13,7 +13,6 @@ void reverse(char s[]);
 
 int main()
 {
-    printf("%d", -128 % 10);
     char s[100];
 
     itoa(0, s);
