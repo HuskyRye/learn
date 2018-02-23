@@ -12,7 +12,7 @@
 
 int getop(char[]);
 void push(double);
-double pop(void);
+double pop();
 
 // Reverse Polish calculator
 int main()
@@ -75,7 +75,7 @@ void push(double f)
 }
 
 /* pop: pop and return top value from stack */
-double pop(void)
+double pop()
 {
     if (sp > 0)
         return val[--sp];
@@ -86,7 +86,7 @@ double pop(void)
 
 #include <ctype.h>
 
-int getch(void);
+int getch();
 void ungetch(int);
 
 /* getop: get next operator or numeric operand */
@@ -126,7 +126,7 @@ char buf[BUFSIZE]; // buffer for ungetch
 int bufp = 0;
 
 // get a possibly pushed back character
-int getch(void)
+int getch()
 {
     return (bufp > 0) ? buf[--bufp] : getchar();
 }
