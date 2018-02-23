@@ -4,7 +4,7 @@
 */
 
 #include <ctype.h>
-#include <math.h>
+#include <math.h>	// -lm when compile
 #include <stdio.h>
 
 double atof(char s[]);
@@ -43,10 +43,11 @@ double atof(char s[])
         power *= 10.0;
     }
     val = sign * val / power;
-    int p = 0;
+    int exponent = 0;
     if (s[i] == 'e' || s[i] == 'E')
-        p = atoi(&s[++i]);
-    return val * pow(10, p);
+        exponent = atoi(&s[++i]);
+
+    return val * pow(10, exponent);
 }
 
 int atoi(char s[])
