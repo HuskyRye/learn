@@ -191,8 +191,7 @@ int getop(char s[])
         while (isdigit(s[++i] = c = getch()))
             ;
     s[i] = '\0';
-    if (c != EOF)
-        ungetch(c);
+    ungetch(c);
     return NUMBER;
 }
 
