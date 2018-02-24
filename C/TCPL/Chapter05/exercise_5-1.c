@@ -35,9 +35,8 @@ int getint(int* pn)
         return 0;
     }
     int sign = (c == '-') ? -1 : 1;
-    int d;
     if (c == '+' || c == '-') {
-        d = c;
+        int d = c;
         if (!isdigit(c = getch())) {
             if (c != EOF)
                 ungetch(c);
