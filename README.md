@@ -1,3 +1,3 @@
 # learn
 
-codes written while learning them
+Codes written while learning them.
