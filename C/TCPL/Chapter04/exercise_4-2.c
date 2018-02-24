@@ -4,7 +4,7 @@
 */
 
 #include <ctype.h>
-#include <math.h>	// -lm when compile
+#include <math.h> // -lm when compile
 #include <stdio.h>
 
 double atof(char s[]);
