@@ -16,5 +16,5 @@ int main()
 /* convert fahrenheit into celsius */
 float celsius(float fahr)
 {
-	return (5.0 / 9.0) * (fahr - 32);
+    return (5.0 / 9.0) * (fahr - 32);
 }
