@@ -7,7 +7,8 @@
 
 #define LIM 1000
 
-enum loop { NO, YES };
+enum loop { NO,
+    YES };
 
 int main()
 {
