@@ -70,7 +70,7 @@ int getch()
 }
 void ungetch(int c)
 {
-    if (bufp > BUFSIZE)
+    if (bufp >= BUFSIZE)
         printf("ungetch: too many characters\n");
     else
         buf[bufp++] = c;
