@@ -60,10 +60,10 @@ void detab(bool* tab)
     int pos = 0;
     while ((c = getchar()) != EOF) {
         if (c == '\t') {
-            while (!tabpos(pos, tab)) {
+            do {
                 putchar(' ');
                 ++pos;
-            }
+            } while (!tabpos(pos, tab));
         } else if (c == '\n') {
             putchar(c);
             pos = 0;
