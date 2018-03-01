@@ -102,6 +102,8 @@ void entab(bool* tab)
             else if (c == '\t')
                 while (!tabpos(pos, tab))
                     ++pos;
+            else
+                ++pos;
         }
     }
 }
