@@ -58,7 +58,7 @@ void onMouse(int event, int x, int y, int flags, void* param)
     case cv::EVENT_FLAG_LBUTTON:
         if (im->channels() == 1) {
             std::cout << "GRAY value at (" << x << ", " << y << ") is: "
-                      << static_cast<int>(im->at<unsigned char>(cv::Point(x, y))) << std::endl;
+                      << static_cast<int>(im->at<uchar>(cv::Point(x, y))) << std::endl;
         } else if (im->channels() == 3) {
             std::cout << "BGR value at (" << x << ", " << y << ") is: "
                       << static_cast<int>(im->at<cv::Vec3b>(cv::Point(x, y))[0]) << ", "
