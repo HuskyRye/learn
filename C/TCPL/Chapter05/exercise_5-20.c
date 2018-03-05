@@ -60,7 +60,7 @@ void dirdcl()
     } else if (tokentype == NAME)
         strcpy(name, token);
     else
-        errormsg("error: expected name or (dcl)\n");
+        prevtoken = true;
     while ((type = gettoken()) == PARENS || type == BRACKETS || type == '(') {
         if (type == PARENS)
             strcat(out, " function returing");
