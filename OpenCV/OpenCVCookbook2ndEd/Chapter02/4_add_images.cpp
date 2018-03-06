@@ -12,7 +12,6 @@ int main()
     cv::Mat image2 = cv::imread("../rain.jpg");
     cv::Mat result;
     // cv::addWeighted(image1, 0.7, image2, 0.9, 0, result);
-    // dst = src1*alpha + src2*beta + gamma;
     result = 0.7 * image1 + 0.9 * image2;
     cv::namedWindow("add images");
     cv::imshow("add images", result);
