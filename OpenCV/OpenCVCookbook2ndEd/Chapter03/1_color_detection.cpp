@@ -9,8 +9,7 @@
 int main()
 {
     // create image processor object
-    ColorDetector cd;
-    cd.setTargetColor(130, 190, 230);
+    ColorDetector cd(230, 190, 130);
 
     cv::Mat image = cv::imread("../boldt.jpg");
     cv::namedWindow("boldt");

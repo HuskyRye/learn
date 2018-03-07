@@ -11,9 +11,15 @@
 class ColorDetector {
 public:
     ColorDetector()
-        : minDist{ 100 }
+        : maxDist{ 100 }
         , target{ 0, 0, 0 }
     {
+    }
+
+    ColorDetector(uchar blue, uchar green, uchar red, int maxDist = 100)
+        : maxDist(maxDist)
+    {
+        setTargetColor(blue, green, red);
     }
 
     // Processes the image, returns a 1-channel binary image.
@@ -24,17 +30,17 @@ public:
     // otherwise distance threshold is set to 0.
     void setColorDistanceThreshold(int distance)
     {
-        minDist = (distance < 0 ? 0 : distance);
+        maxDist = (distance < 0 ? 0 : distance);
     }
 
     // Gets the color distance threshold
     int colorDistanceThreshold() const
     {
-        return minDist;
+        return maxDist;
     }
 
     // Sets the color to be detected
-    void setTargetColor(uchar red, uchar green, uchar blue)
+    void setTargetColor(uchar blue, uchar green, uchar red)
     {
         // BGR
         target[2] = red;
@@ -55,7 +61,7 @@ public:
     }
 
 private:
-    int minDist;
+    int maxDist;
     cv::Vec3b target;
     cv::Mat result;
 
