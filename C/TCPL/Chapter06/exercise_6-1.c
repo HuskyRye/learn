@@ -103,7 +103,7 @@ int getword(char* word, int lim)
         for (; --lim > 0; ++w) {
             *w = getch();
             if (*w == '\\')
-                *(++w) = getch(); // one character
+                *(++w) = getch(); // escape \' and \"
             else if (*w == c) {
                 ++w;
                 break;
@@ -113,9 +113,9 @@ int getword(char* word, int lim)
     } else if (c == '/') {
         int d = getch();
         if (d == '*')
-            comment();
+            c = comment();
         else
-            ungetch(c);
+            ungetch(d);
     }
     *w = '\0';
     return c;
