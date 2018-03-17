@@ -103,15 +103,13 @@ int getword(char* w, int lim)
         ;
     if (c != EOF)
         *(w++) = c;
-    if (!isalpha(c)) {
-        *w = '\0';
-        return c;
-    }
-    for (; --lim > 0; ++w) {
-        *w = getch();
-        if (!isalpha(*w)) {
-            ungetch(*w);
-            break;
+    if (isalpha(c)) {
+        for (; --lim > 0; ++w) {
+            *w = getch();
+            if (!isalpha(*w)) {
+                ungetch(*w);
+                break;
+            }
         }
     }
     *w = '\0';
