@@ -1,0 +1,15 @@
+#include <stdio.h>
+
+#define MAXWLEN 100 /* max len of a word */
+#define HASHSIZE 101
+
+printf("MAXWLEN within strings");
+
+char word[MAXWLEN]; /* MAXWLEN */
+int a = HASHSIZE;
+
+#undef MAXWLEN
+#undef HASHSIZE
+
+char word[MAXWLEN];
+int a = HASHSIZE;
