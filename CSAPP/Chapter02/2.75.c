@@ -4,7 +4,6 @@
 */
 
 #include <assert.h>
-#include <inttypes.h>
 #include <stdio.h>
 
 unsigned unsigned_high_prod(unsigned x, unsigned y);
@@ -14,6 +13,7 @@ int main()
 {
     int num = 0x12345678;
     assert(unsigned_high_prod(num, num) == unsigned_high_prod_good(num, num));
+    printf("%X\n%X\n", unsigned_high_prod(num, num), unsigned_high_prod_good(num, num));
     return 0;
 }
 int signed_high_prod(int x, int y);
@@ -28,12 +28,12 @@ unsigned unsigned_high_prod(unsigned x, unsigned y)
 
 unsigned unsigned_high_prod_good(unsigned x, unsigned y)
 {
-    uint64_t mul = (uint64_t)x * y;
+    unsigned long long mul = (unsigned long long)x * y;
     return mul >> 32;
 }
 
 int signed_high_prod(int x, int y)
 {
-    int64_t mul = (int64_t)x * y;
+    long long mul = (long long)x * y;
     return mul >> 32;
 }
