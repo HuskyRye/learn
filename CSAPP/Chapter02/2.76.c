@@ -4,7 +4,7 @@
 */
 
 #include <assert.h>
-#include <inttypes.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -17,10 +17,10 @@ int main()
     assert(p != NULL);
     free(p);
 
-    p = calloc(SIZE_MAX, 1);
+    p = calloc(UINT_MAX, 1);
     assert(p == NULL);
 
-    p = calloc(SIZE_MAX, 2);
+    p = calloc(UINT_MAX, 2);
     assert(p == NULL);
     return 0;
 }
