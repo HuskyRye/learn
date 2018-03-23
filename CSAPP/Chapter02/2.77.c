@@ -13,11 +13,11 @@ int D(int x);
 
 int main()
 {
-    int num = 123;
-    assert(A(num) == num * 17);
-    assert(B(num) == num * -7);
-    assert(C(num) == num * 60);
-    assert(D(num) == num * -112);
+    int x = 123;
+    assert(A(x) == x * 17);
+    assert(B(x) == x * -7);
+    assert(C(x) == x * 60);
+    assert(D(x) == x * -112);
     return 0;
 }
 
