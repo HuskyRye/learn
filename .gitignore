@@ -1,8 +1,1 @@
-# Executables
-*.out
-
-# Cmake
-build/
-
-# Dolphin
-.directory
+CSAPP/CSAPP/*
