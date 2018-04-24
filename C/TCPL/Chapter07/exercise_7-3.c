@@ -47,7 +47,6 @@ void minprintf(char* fmt, ...)
     va_list ap;
     va_start(ap, fmt);
 
-    char* p;
     int i;
     char localfmt[LOCALFMT];
 
@@ -57,7 +56,7 @@ void minprintf(char* fmt, ...)
     char* sval;
     void* vval;
 
-    for (p = fmt; *p; ++p) {
+    for (char* p = fmt; *p; ++p) {
         if (*p != '%') {
             putchar(*p);
             continue;
