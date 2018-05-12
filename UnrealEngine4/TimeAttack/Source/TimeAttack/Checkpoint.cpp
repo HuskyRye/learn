@@ -13,6 +13,7 @@ ACheckpoint::ACheckpoint()
     RootComponent = Root;
 
     Arrow = CreateDefaultSubobject<UArrowComponent>(TEXT("Arrow"));
+    Arrow->SetupAttachment(Root);
 
     Trigger = CreateDefaultSubobject<UBoxComponent>(TEXT("Trigger"));
     Trigger->SetupAttachment(Root);

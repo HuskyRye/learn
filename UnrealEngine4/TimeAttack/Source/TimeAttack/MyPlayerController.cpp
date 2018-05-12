@@ -3,6 +3,8 @@
 #include "MyPlayerController.h"
 
 #include "Blueprint/UserWidget.h"
+#include "UObject/ConstructorHelpers.h"
+
 #include "Kismet/GameplayStatics.h"
 
 AMyPlayerController::AMyPlayerController()
@@ -11,76 +13,80 @@ AMyPlayerController::AMyPlayerController()
 
     CurrentLap = 1;
     MaxLaps = 3;
+
+    static ConstructorHelpers::FClassFinder<UUserWidget> HUDWidget(TEXT("/Game/Blueprints/UI/TimeAttack_HUD"));
+    if (HUDWidget.Class)
+        HUDWidgetClass = HUDWidget.Class;
 }
 
 void AMyPlayerController::BeginPlay()
 {
     if (HUDWidgetClass) {
         HUDReference = CreateWidget<UUserWidget>(GetWorld(), HUDWidgetClass);
-        if (HUDReference) {
+        if (HUDReference)
             HUDReference->AddToViewport();
-        }
     }
+
     VehicleReference = Cast<ATimeAttackPawn>(UGameplayStatics::GetPlayerPawn(this, 0));
 }
 
-void AMyPlayerController::StartGameSetup()
+void AMyPlayerController::startGameSetup()
 {
 }
 
-void AMyPlayerController::Restart()
+void AMyPlayerController::restart()
 {
 }
 
-void AMyPlayerController::UpdateLap()
+void AMyPlayerController::updateLap()
 {
 }
 
-void AMyPlayerController::RespawnVehicle()
+void AMyPlayerController::respawnVehicle()
 {
 }
 
-void AMyPlayerController::StarRaceTime()
+void AMyPlayerController::starRaceTime()
 {
 }
 
-void AMyPlayerController::StopRaceTime()
+void AMyPlayerController::stopRaceTime()
 {
 }
 
-void AMyPlayerController::StartLapTime()
+void AMyPlayerController::startLapTime()
 {
 }
 
-void AMyPlayerController::StopLapTime()
+void AMyPlayerController::stopLapTime()
 {
 }
 
-void AMyPlayerController::InitText()
+void AMyPlayerController::initText()
 {
 }
 
-bool AMyPlayerController::SaveGameCheck()
+bool AMyPlayerController::saveGameCheck()
 {
     return false;
 }
 
-void AMyPlayerController::SaveTheGame()
+void AMyPlayerController::saveTheGame()
 {
 }
 
-void AMyPlayerController::LoadTheGame()
+void AMyPlayerController::loadTheGame()
 {
 }
 
-void AMyPlayerController::LapTimeCheck()
+void AMyPlayerController::lapTimeCheck()
 {
 }
 
-void AMyPlayerController::RaceTimeCheck()
+void AMyPlayerController::raceTimeCheck()
 {
 }
 
-void AMyPlayerController::UpdateGoals()
+void AMyPlayerController::updateGoals()
 {
 }

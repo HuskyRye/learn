@@ -22,14 +22,14 @@ protected:
     void BeginPlay() override;
 
 public:
-    void StartGameSetup();
-    void Restart();
-    void UpdateLap();
-    void RespawnVehicle();
-    void StarRaceTime();
-    void StopRaceTime();
-    void StartLapTime();
-    void StopLapTime();
+    void startGameSetup();
+    void restart();
+    void updateLap();
+    void respawnVehicle();
+    void starRaceTime();
+    void stopRaceTime();
+    void startLapTime();
+    void stopLapTime();
 
 protected:
     /** Time Attack Value Variable */
@@ -62,21 +62,19 @@ protected:
     FTransform RespawnLocation;
     FString SaveSlot;
 
-    // The widget class to use for our HUD screen
     TSubclassOf<UUserWidget> HUDWidgetClass;
 
-    // The instance of the HUD
     UPROPERTY()
     UUserWidget* HUDReference;
 
     ATimeAttackPawn* VehicleReference;
 
 private:
-    void InitText();
-    bool SaveGameCheck();
-    void SaveTheGame();
-    void LoadTheGame();
-    void LapTimeCheck();
-    void RaceTimeCheck();
-    void UpdateGoals();
+    void initText();
+    bool saveGameCheck();
+    void saveTheGame();
+    void loadTheGame();
+    void lapTimeCheck();
+    void raceTimeCheck();
+    void updateGoals();
 };

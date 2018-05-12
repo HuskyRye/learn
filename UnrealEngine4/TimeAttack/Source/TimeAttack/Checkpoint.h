@@ -20,10 +20,6 @@ public:
     // Sets default values for this actor's properties
     ACheckpoint();
 
-protected:
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "TimeAttack", Meta = (BlurprintProtected = "true"))
-    int32 CheckpointNumber;
-
 private:
     UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "TimeAttack", Meta = (AllowPrivateAccess = "true"))
     USceneComponent* Root;
@@ -36,4 +32,9 @@ private:
 
     UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "TimeAttack", Meta = (AllowPrivateAccess = "true"))
     UParticleSystemComponent* ParticleSystem;
+
+    int32 checkpointNumber;
+
+    DECLARE_DELEGATE_OneParam(CheckpointCleared, int32)
+    void checkpointCleared(int32 nextCheckpoint);
 };
