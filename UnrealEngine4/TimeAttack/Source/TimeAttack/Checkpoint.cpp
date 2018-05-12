@@ -21,6 +21,12 @@ ACheckpoint::ACheckpoint()
     Trigger->SetVisibility(true);
     Trigger->SetHiddenInGame(false);
     Trigger->SetCollisionProfileName(TEXT("OverlapOnlyPawn"));
+    Trigger->OnComponentBeginOverlap.AddDynamic(this, &ACheckpoint::onComponentBeginOverlap);
 
     ParticleSystem = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("ParticleSystem"));
+}
+
+void ACheckpoint::onComponentBeginOverlap(class UPrimitiveComponent* HitComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+
 }

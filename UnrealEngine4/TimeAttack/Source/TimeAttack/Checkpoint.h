@@ -20,6 +20,9 @@ public:
     // Sets default values for this actor's properties
     ACheckpoint();
 
+    UFUNCTION()
+    void onComponentBeginOverlap(class UPrimitiveComponent* HitComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);  
+
 private:
     UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "TimeAttack", Meta = (AllowPrivateAccess = "true"))
     USceneComponent* Root;
@@ -35,6 +38,4 @@ private:
 
     int32 checkpointNumber;
 
-    DECLARE_DELEGATE_OneParam(CheckpointCleared, int32)
-    void checkpointCleared(int32 nextCheckpoint);
 };
