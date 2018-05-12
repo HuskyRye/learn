@@ -3,17 +3,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
 #include "GameFramework/GameModeBase.h"
+
 #include "TimeAttackGameMode.generated.h"
 
 UCLASS(MinimalAPI)
-class ATimeAttackGameMode : public AGameModeBase
-{
-	GENERATED_BODY()
+class ATimeAttackGameMode : public AGameModeBase {
+
+    GENERATED_BODY()
 
 public:
-	ATimeAttackGameMode();
+    ATimeAttackGameMode();
 };
-
-
-

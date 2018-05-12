@@ -3,18 +3,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
 #include "GameFramework/SaveGame.h"
+
 #include "MySaveGame.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TIMEATTACK_API UMySaveGame : public USaveGame
-{
-	GENERATED_BODY()
-	
-	
-	
-	
+class TIMEATTACK_API UMySaveGame : public USaveGame {
+
+    GENERATED_BODY()
+
 };

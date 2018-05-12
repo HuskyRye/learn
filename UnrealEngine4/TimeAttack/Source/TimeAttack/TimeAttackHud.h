@@ -3,23 +3,24 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
 #include "GameFramework/HUD.h"
+
 #include "TimeAttackHud.generated.h"
 
 UCLASS(config = Game)
-class ATimeAttackHud : public AHUD
-{
-	GENERATED_BODY()
+class ATimeAttackHud : public AHUD {
+
+    GENERATED_BODY()
 
 public:
-	ATimeAttackHud();
+    ATimeAttackHud();
 
-	/** Font used to render the vehicle info */
-	UPROPERTY()
-	UFont* HUDFont;
+    /** Font used to render the vehicle info */
+    UPROPERTY()
+    UFont* HUDFont;
 
-	// Begin AHUD interface
-	virtual void DrawHUD() override;
-	// End AHUD interface
-
+    // Begin AHUD interface
+    virtual void DrawHUD() override;
+    // End AHUD interface
 };
