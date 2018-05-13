@@ -1,7 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Checkpoint.h"
+
 #include "Engine/CollisionProfile.h"
+#include "TimeAttackPawn.h"
 
 // Sets default values
 ACheckpoint::ACheckpoint()
@@ -19,14 +21,24 @@ ACheckpoint::ACheckpoint()
     Trigger->SetupAttachment(Root);
     Trigger->SetRelativeScale3D(FVector(1.0, 6.5, 6.5));
     Trigger->SetVisibility(true);
-    Trigger->SetHiddenInGame(false);
+    Trigger->bGenerateOverlapEvents = false;
     Trigger->SetCollisionProfileName(TEXT("OverlapOnlyPawn"));
-    Trigger->OnComponentBeginOverlap.AddDynamic(this, &ACheckpoint::onComponentBeginOverlap);
+    Trigger->OnComponentEndOverlap.AddDynamic(this, &ACheckpoint::onComponentEndOverlap);
 
     ParticleSystem = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("ParticleSystem"));
 }
 
-void ACheckpoint::onComponentBeginOverlap(class UPrimitiveComponent* HitComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+void ACheckpoint::onComponentEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
+    ATimeAttackPawn* TimeAttackPawn = Cast<ATimeAttackPawn>(OtherActor);
+    if (TimeAttackPawn && FVector::DotProduct(Arrow->GetComponentRotation().Vector(), TimeAttackPawn->GetVelocity()) > 0) {
+        checkpointCleared(checkpointNumber);
+        Trigger->SetHiddenInGame(true);
+        ParticleSystem->SetHiddenInGame(true);
+        Trigger->bGenerateOverlapEvents = false;
+    }
+}
 
+void ACheckpoint::checkpointCleared(int32 NextCheckpoint)
+{
 }

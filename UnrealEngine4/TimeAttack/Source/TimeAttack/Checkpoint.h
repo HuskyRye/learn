@@ -21,7 +21,7 @@ public:
     ACheckpoint();
 
     UFUNCTION()
-    void onComponentBeginOverlap(class UPrimitiveComponent* HitComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);  
+    void onComponentEndOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 private:
     UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = "TimeAttack", Meta = (AllowPrivateAccess = "true"))
@@ -37,5 +37,7 @@ private:
     UParticleSystemComponent* ParticleSystem;
 
     int32 checkpointNumber;
+
+    void checkpointCleared(int32 NextCheckpoint);
 
 };
