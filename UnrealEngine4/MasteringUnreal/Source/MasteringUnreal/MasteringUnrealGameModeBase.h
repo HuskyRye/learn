@@ -10,11 +10,8 @@
  * 
  */
 UCLASS()
-class MASTERINGUNREAL_API AMasteringUnrealGameModeBase : public AGameModeBase
-{
-	GENERATED_BODY()
-	
-	
-	
-	
+class MASTERINGUNREAL_API AMasteringUnrealGameModeBase : public AGameModeBase {
+
+    GENERATED_BODY()
+
 };

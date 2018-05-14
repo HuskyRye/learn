@@ -3,4 +3,4 @@
 #include "MasteringUnreal.h"
 #include "Modules/ModuleManager.h"
 
-IMPLEMENT_PRIMARY_GAME_MODULE( FDefaultGameModuleImpl, MasteringUnreal, "MasteringUnreal" );
+IMPLEMENT_PRIMARY_GAME_MODULE(FDefaultGameModuleImpl, MasteringUnreal, "MasteringUnreal");
