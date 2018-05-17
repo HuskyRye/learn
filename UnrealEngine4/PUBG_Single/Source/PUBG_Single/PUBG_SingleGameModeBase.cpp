@@ -1,4 +1,7 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/*
+    Author: 刘臣轩
+    Date: 2018.5.17
+*/
 
 #include "PUBG_SingleGameModeBase.h"
 #include "UObject/ConstructorHelpers.h"
