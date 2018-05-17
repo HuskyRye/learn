@@ -4,7 +4,9 @@
 */
 
 #include "PUBG_Character.h"
-#include "Components/InputComponent.h"
+
+#include "Components/SkeletalMeshComponent.h"
+#include "UObject/ConstructorHelpers.h"
 
 // Sets default values
 APUBG_Character::APUBG_Character()
@@ -15,6 +17,11 @@ APUBG_Character::APUBG_Character()
     bUseControllerRotationPitch = false;
     bUseControllerRotationYaw = true;
     bUseControllerRotationRoll = false;
+
+    static ConstructorHelpers::FObjectFinder<USkeletalMesh> CharacterMesh(TEXT("/Game/Girl_01/meshes/girl_01_a"));
+    GetMesh()->SetSkeletalMesh(CharacterMesh.Object);
+    GetMesh()->SetRelativeLocation(FVector(0, 0, -90));
+    GetMesh()->SetRelativeRotation(FRotator(0, -90, 0));
 
     SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
     SpringArm->SetupAttachment(RootComponent);
