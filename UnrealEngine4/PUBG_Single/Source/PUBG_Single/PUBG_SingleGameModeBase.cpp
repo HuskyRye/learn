@@ -10,5 +10,8 @@
 
 APUBG_SingleGameModeBase::APUBG_SingleGameModeBase()
 {
-    DefaultPawnClass = APUBG_Character::StaticClass();
+    static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Blueprints/BP_PUBG_Character"));
+    if (PlayerPawnBPClass.Class)
+        DefaultPawnClass = PlayerPawnBPClass.Class;
+    // DefaultPawnClass = APUBG_Character::StaticClass();
 }
