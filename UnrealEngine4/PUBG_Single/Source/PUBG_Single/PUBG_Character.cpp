@@ -5,7 +5,9 @@
 
 #include "PUBG_Character.h"
 
+#include "Components/ArrowComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "UObject/ConstructorHelpers.h"
 
 // Sets default values
@@ -32,6 +34,7 @@ APUBG_Character::APUBG_Character()
 
     FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
     FollowCamera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
+
 }
 
 // Called when the game starts or when spawned

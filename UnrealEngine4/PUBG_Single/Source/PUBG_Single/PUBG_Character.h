@@ -8,8 +8,10 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 
+#include "Animation/BlendSpace.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "TimerManager.h"
 
 #include "PUBG_Character.generated.h"
 
@@ -40,7 +42,6 @@ protected:
     // Called for side to side input
     void MoveRight(float AxisValue);
 
-
 private:
     // Camera boom positioning the camera behind the character
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, Meta = (AllowPrivateAccess = "true"))
@@ -49,6 +50,9 @@ private:
     // Follow camera
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, Meta = (AllowPrivateAccess = "true"))
     UCameraComponent* FollowCamera;
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Anims", Meta = (AllowPrivateAccess = "true"))
+    UBlendSpace* BlendSpace;
 
 public:
     FORCEINLINE USpringArmComponent* GetSpringArm() const { return SpringArm; }
