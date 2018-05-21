@@ -34,7 +34,6 @@ APUBG_Character::APUBG_Character()
 
     FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
     FollowCamera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
-
 }
 
 // Called when the game starts or when spawned
