@@ -42,6 +42,12 @@ protected:
     // Called for side to side input
     void MoveRight(float AxisValue);
 
+    // Called when left shift is pressed
+    void RunPressed();
+
+    // Called when left shift is released
+    void RunReleased();
+
 private:
     // Camera boom positioning the camera behind the character
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, Meta = (AllowPrivateAccess = "true"))
@@ -50,9 +56,6 @@ private:
     // Follow camera
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, Meta = (AllowPrivateAccess = "true"))
     UCameraComponent* FollowCamera;
-
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Anims", Meta = (AllowPrivateAccess = "true"))
-    UBlendSpace* BlendSpace;
 
 public:
     FORCEINLINE USpringArmComponent* GetSpringArm() const { return SpringArm; }

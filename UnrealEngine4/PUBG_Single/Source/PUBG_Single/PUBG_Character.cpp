@@ -7,6 +7,7 @@
 
 #include "Components/ArrowComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "UObject/ConstructorHelpers.h"
 
@@ -34,6 +35,11 @@ APUBG_Character::APUBG_Character()
 
     FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
     FollowCamera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
+
+    static ConstructorHelpers::FClassFinder<UAnimInstance> PUBG_AnimBP(TEXT("/Game/Animation/PUBG_AnimBP"));
+    GetMesh()->SetAnimInstanceClass(PUBG_AnimBP.Class);
+
+    GetCharacterMovement()->MaxWalkSpeed = 450;
 }
 
 // Called when the game starts or when spawned
@@ -60,6 +66,9 @@ void APUBG_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
     PlayerInputComponent->BindAxis("Turn", this, &ACharacter::AddControllerYawInput);
     PlayerInputComponent->BindAxis("LookUp", this, &ACharacter::AddControllerPitchInput);
+
+    PlayerInputComponent->BindAction("Run", IE_Pressed, this, &APUBG_Character::RunPressed);
+    PlayerInputComponent->BindAction("Run", IE_Released, this, &APUBG_Character::RunReleased);
 }
 
 void APUBG_Character::MoveForward(float AxisValue)
@@ -72,4 +81,14 @@ void APUBG_Character::MoveRight(float AxisValue)
 {
     if (AxisValue)
         AddMovementInput(GetActorRightVector(), AxisValue);
+}
+
+void APUBG_Character::RunPressed()
+{
+    GetCharacterMovement()->MaxWalkSpeed = 600;
+}
+
+void APUBG_Character::RunReleased()
+{
+    GetCharacterMovement()->MaxWalkSpeed = 450;
 }
