@@ -10,8 +10,8 @@
 
 #include "Animation/BlendSpace.h"
 #include "Camera/CameraComponent.h"
+#include "Components/TimelineComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "TimerManager.h"
 
 #include "PUBG_Character.generated.h"
 
@@ -48,6 +48,12 @@ protected:
     // Called when left shift is released
     void RunReleased();
 
+    // Called when left alt is pressed
+    void AltPressed();
+
+    // Called when left alt is released
+    void AltReleased();
+
 private:
     // Camera boom positioning the camera behind the character
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, Meta = (AllowPrivateAccess = "true"))
@@ -56,6 +62,13 @@ private:
     // Follow camera
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, Meta = (AllowPrivateAccess = "true"))
     UCameraComponent* FollowCamera;
+
+    // Curve float reference
+    UPROPERTY(VisibleAnywhere, Category = "PUBG", Meta = (AllowPrivateAccess = "true"))
+    UCurveFloat* TurnBackCurve;
+
+    // The timeline used to turn the Controller back
+    FTimeline TurnBackTimeline;
 
 public:
     FORCEINLINE USpringArmComponent* GetSpringArm() const { return SpringArm; }

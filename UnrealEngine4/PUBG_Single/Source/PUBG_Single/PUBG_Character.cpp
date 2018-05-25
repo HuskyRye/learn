@@ -46,6 +46,9 @@ APUBG_Character::APUBG_Character()
 void APUBG_Character::BeginPlay()
 {
     Super::BeginPlay();
+    if (TurnBackCurve) {
+        
+    }
 }
 
 // Called every frame
@@ -69,6 +72,9 @@ void APUBG_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
     PlayerInputComponent->BindAction("Run", IE_Pressed, this, &APUBG_Character::RunPressed);
     PlayerInputComponent->BindAction("Run", IE_Released, this, &APUBG_Character::RunReleased);
+
+    PlayerInputComponent->BindAction("LookAround", IE_Pressed, this, &APUBG_Character::AltPressed);
+    PlayerInputComponent->BindAction("LookAround", IE_Released, this, &APUBG_Character::AltReleased);
 }
 
 void APUBG_Character::MoveForward(float AxisValue)
@@ -91,4 +97,14 @@ void APUBG_Character::RunPressed()
 void APUBG_Character::RunReleased()
 {
     GetCharacterMovement()->MaxWalkSpeed = 450;
+}
+
+void APUBG_Character::AltPressed()
+{
+    bUseControllerRotationYaw = false;
+}
+
+void APUBG_Character::AltReleased()
+{
+    bUseControllerRotationYaw = true;
 }
