@@ -1,6 +1,6 @@
 /*
     Author: 刘臣轩
-    Date: 2018.5.17
+    Date: 2018.5.29
 */
 
 #pragma once
@@ -66,9 +66,15 @@ private:
     // Curve float reference
     UPROPERTY(VisibleAnywhere, Category = "PUBG", Meta = (AllowPrivateAccess = "true"))
     UCurveFloat* TurnBackCurve;
-
+    
     // The timeline used to turn the Controller back
     FTimeline TurnBackTimeline;
+
+    UFUNCTION()
+    void UpdateController(float Value);
+
+    FRotator TargetControlRotation;
+    FRotator CurrentContrtolRotation;
 
 public:
     FORCEINLINE USpringArmComponent* GetSpringArm() const { return SpringArm; }

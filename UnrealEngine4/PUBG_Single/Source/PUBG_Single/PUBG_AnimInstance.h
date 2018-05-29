@@ -1,6 +1,6 @@
 /*
     Author: Áõ³¼Ðù
-    Date: 2018.5.21
+    Date: 2018.5.29
 */
 
 #pragma once
@@ -28,4 +28,12 @@ protected:
     // The direction of the character's movement, from -180 to 180.
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "PUBG")
     float Direction;
+
+    // Default AimOffset Yaw Value
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "PUBG")
+    float Yaw;
+
+    // Default AimOffset Pitch Value
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "PUBG")
+    float Pitch;
 };

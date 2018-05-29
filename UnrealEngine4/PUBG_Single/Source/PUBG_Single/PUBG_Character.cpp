@@ -1,6 +1,6 @@
 ﻿/*
     Author: 刘臣轩
-    Date: 2018.5.17
+    Date: 2018.5.29
 */
 
 #include "PUBG_Character.h"
@@ -15,7 +15,7 @@
 APUBG_Character::APUBG_Character()
 {
     // Set this character to call Tick() every frame.
-    PrimaryActorTick.bCanEverTick = false;
+    PrimaryActorTick.bCanEverTick = true;
 
     bUseControllerRotationPitch = false;
     bUseControllerRotationYaw = true;
@@ -32,14 +32,17 @@ APUBG_Character::APUBG_Character()
     SpringArm->SetRelativeLocation(FVector(0, 0, 100));
     SpringArm->SocketOffset = FVector(0, 25, 0);
     SpringArm->bUsePawnControlRotation = true;
+    SpringArm->bEnableCameraRotationLag = true;
 
     FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
     FollowCamera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 
     static ConstructorHelpers::FClassFinder<UAnimInstance> PUBG_AnimBP(TEXT("/Game/Animation/PUBG_AnimBP"));
     GetMesh()->SetAnimInstanceClass(PUBG_AnimBP.Class);
-
     GetCharacterMovement()->MaxWalkSpeed = 450;
+
+    static ConstructorHelpers::FObjectFinder<UCurveFloat> FindTurnBackCurve(TEXT("/Game/Animation/TurnBackCurve"));
+    TurnBackCurve = FindTurnBackCurve.Object;
 }
 
 // Called when the game starts or when spawned
@@ -47,7 +50,13 @@ void APUBG_Character::BeginPlay()
 {
     Super::BeginPlay();
     if (TurnBackCurve) {
-        
+        FOnTimelineFloat TurnBackTimelineCallBack;
+        FOnTimelineEventStatic TurnBackTimelineFinishedCallback;
+
+        TurnBackTimelineCallBack.BindUFunction(this, FName("UpdateController"));
+        TurnBackTimelineFinishedCallback.BindLambda([this]() { bUseControllerRotationYaw = true; });
+        TurnBackTimeline.AddInterpFloat(TurnBackCurve, TurnBackTimelineCallBack);
+        TurnBackTimeline.SetTimelineFinishedFunc(TurnBackTimelineFinishedCallback);
     }
 }
 
@@ -55,6 +64,8 @@ void APUBG_Character::BeginPlay()
 void APUBG_Character::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
+
+    TurnBackTimeline.TickTimeline(DeltaTime);
 }
 
 // Called to bind functionality to input
@@ -101,10 +112,18 @@ void APUBG_Character::RunReleased()
 
 void APUBG_Character::AltPressed()
 {
+    TargetControlRotation = GetControlRotation();
     bUseControllerRotationYaw = false;
 }
 
 void APUBG_Character::AltReleased()
 {
-    bUseControllerRotationYaw = true;
+    CurrentContrtolRotation = GetControlRotation();
+    TurnBackTimeline.PlayFromStart();
+}
+
+void APUBG_Character::UpdateController(float Value)
+{
+    FRotator NewRotation = FMath::Lerp(CurrentContrtolRotation, TargetControlRotation, Value);
+    Controller->SetControlRotation(NewRotation);
 }
