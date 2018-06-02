@@ -17,15 +17,18 @@ APUBG_Character::APUBG_Character()
     // Set this character to call Tick() every frame.
     PrimaryActorTick.bCanEverTick = true;
 
+    // Use controller to update the Pawn's Yaw
     bUseControllerRotationPitch = false;
     bUseControllerRotationYaw = true;
     bUseControllerRotationRoll = false;
 
+    // SkeletalMesh
     static ConstructorHelpers::FObjectFinder<USkeletalMesh> CharacterMesh(TEXT("/Game/Girl_01/meshes/girl_01_a"));
     GetMesh()->SetSkeletalMesh(CharacterMesh.Object);
     GetMesh()->SetRelativeLocation(FVector(0, 0, -90));
     GetMesh()->SetRelativeRotation(FRotator(0, -90, 0));
 
+    // SpringArm
     SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
     SpringArm->SetupAttachment(RootComponent);
     SpringArm->TargetArmLength = 200;
@@ -34,15 +37,24 @@ APUBG_Character::APUBG_Character()
     SpringArm->bUsePawnControlRotation = true;
     SpringArm->bEnableCameraRotationLag = true;
 
+    // FollowCamera
     FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
     FollowCamera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 
+    // Animation Blueprint
     static ConstructorHelpers::FClassFinder<UAnimInstance> PUBG_AnimBP(TEXT("/Game/Animation/PUBG_AnimBP"));
     GetMesh()->SetAnimInstanceClass(PUBG_AnimBP.Class);
-    GetCharacterMovement()->MaxWalkSpeed = 450;
 
+    // TurnBackCurve
     static ConstructorHelpers::FObjectFinder<UCurveFloat> FindTurnBackCurve(TEXT("/Game/Animation/TurnBackCurve"));
     TurnBackCurve = FindTurnBackCurve.Object;
+
+    // CharacterMovement
+    GetCharacterMovement()->MaxWalkSpeed = 450;
+    GetCharacterMovement()->BrakingFrictionFactor = 0.1;
+    GetCharacterMovement()->BrakingDecelerationWalking = 1024;
+    GetCharacterMovement()->GroundFriction = 0.1;
+    
 }
 
 // Called when the game starts or when spawned
