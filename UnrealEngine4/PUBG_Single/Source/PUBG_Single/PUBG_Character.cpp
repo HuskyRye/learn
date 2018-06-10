@@ -17,25 +17,25 @@ APUBG_Character::APUBG_Character()
     // Set this character to call Tick() every frame.
     PrimaryActorTick.bCanEverTick = true;
 
-    // Use controller to update the Pawn's Yaw
+    // Don't use controller to update the Pawn's Yaw
     bUseControllerRotationPitch = false;
-    bUseControllerRotationYaw = true;
+    bUseControllerRotationYaw = false;
     bUseControllerRotationRoll = false;
 
     // SkeletalMesh
     static ConstructorHelpers::FObjectFinder<USkeletalMesh> CharacterMesh(TEXT("/Game/Girl_01/meshes/girl_01_a"));
-    GetMesh()->SetSkeletalMesh(CharacterMesh.Object);
-    GetMesh()->SetRelativeLocation(FVector(0, 0, -90));
-    GetMesh()->SetRelativeRotation(FRotator(0, -90, 0));
+    USkeletalMeshComponent* Mesh = GetMesh();
+    Mesh->SetSkeletalMesh(CharacterMesh.Object);
+    Mesh->SetRelativeLocation(FVector(0, 0, -90));
+    Mesh->SetRelativeRotation(FRotator(0, -90, 0));
 
     // SpringArm
     SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
     SpringArm->SetupAttachment(RootComponent);
-    SpringArm->TargetArmLength = 200;
-    SpringArm->SetRelativeLocation(FVector(0, 0, 100));
-    SpringArm->SocketOffset = FVector(0, 25, 0);
+    SpringArm->TargetArmLength = 220;
+    SpringArm->SetRelativeLocation(FVector(0, 0, 110));
+    SpringArm->SocketOffset = FVector(0, 20, 0);
     SpringArm->bUsePawnControlRotation = true;
-    SpringArm->bEnableCameraRotationLag = true;
 
     // FollowCamera
     FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
@@ -50,10 +50,13 @@ APUBG_Character::APUBG_Character()
     TurnBackCurve = FindTurnBackCurve.Object;
 
     // CharacterMovement
-    GetCharacterMovement()->MaxWalkSpeed = 450;
-    GetCharacterMovement()->BrakingFrictionFactor = 0.1;
-    GetCharacterMovement()->BrakingDecelerationWalking = 1024;
-    GetCharacterMovement()->GroundFriction = 0.1;
+    UCharacterMovementComponent* CharacterMovement = GetCharacterMovement();
+    CharacterMovement->MaxWalkSpeed = 450;
+    CharacterMovement->BrakingFrictionFactor = 0.1;
+    CharacterMovement->BrakingDecelerationWalking = 1024;
+    CharacterMovement->GroundFriction = 0.1;
+    CharacterMovement->bUseControllerDesiredRotation = true;
+    CharacterMovement->RotationRate = FRotator(0, 180, 0);
     
 }
 
@@ -66,7 +69,7 @@ void APUBG_Character::BeginPlay()
         FOnTimelineEventStatic TurnBackTimelineFinishedCallback;
 
         TurnBackTimelineCallBack.BindUFunction(this, FName("UpdateController"));
-        TurnBackTimelineFinishedCallback.BindLambda([this]() { bUseControllerRotationYaw = true; });
+        TurnBackTimelineFinishedCallback.BindLambda([this]() { GetCharacterMovement()->bUseControllerDesiredRotation = true; });
         TurnBackTimeline.AddInterpFloat(TurnBackCurve, TurnBackTimelineCallBack);
         TurnBackTimeline.SetTimelineFinishedFunc(TurnBackTimelineFinishedCallback);
     }
@@ -93,11 +96,11 @@ void APUBG_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
     PlayerInputComponent->BindAxis("Turn", this, &ACharacter::AddControllerYawInput);
     PlayerInputComponent->BindAxis("LookUp", this, &ACharacter::AddControllerPitchInput);
 
-    PlayerInputComponent->BindAction("Run", IE_Pressed, this, &APUBG_Character::RunPressed);
-    PlayerInputComponent->BindAction("Run", IE_Released, this, &APUBG_Character::RunReleased);
+    PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &APUBG_Character::SprintPressed);
+    PlayerInputComponent->BindAction("Sprint", IE_Released, this, &APUBG_Character::SprintReleased);
 
-    PlayerInputComponent->BindAction("LookAround", IE_Pressed, this, &APUBG_Character::AltPressed);
-    PlayerInputComponent->BindAction("LookAround", IE_Released, this, &APUBG_Character::AltReleased);
+    PlayerInputComponent->BindAction("Freelook", IE_Pressed, this, &APUBG_Character::FreelookPressed);
+    PlayerInputComponent->BindAction("Freelook", IE_Released, this, &APUBG_Character::FreelookReleased);
 }
 
 void APUBG_Character::MoveForward(float AxisValue)
@@ -112,23 +115,23 @@ void APUBG_Character::MoveRight(float AxisValue)
         AddMovementInput(GetActorRightVector(), AxisValue);
 }
 
-void APUBG_Character::RunPressed()
+void APUBG_Character::SprintPressed()
 {
     GetCharacterMovement()->MaxWalkSpeed = 600;
 }
 
-void APUBG_Character::RunReleased()
+void APUBG_Character::SprintReleased()
 {
     GetCharacterMovement()->MaxWalkSpeed = 450;
 }
 
-void APUBG_Character::AltPressed()
+void APUBG_Character::FreelookPressed()
 {
     TargetControlRotation = GetControlRotation();
-    bUseControllerRotationYaw = false;
+    GetCharacterMovement()->bUseControllerDesiredRotation = false;
 }
 
-void APUBG_Character::AltReleased()
+void APUBG_Character::FreelookReleased()
 {
     CurrentContrtolRotation = GetControlRotation();
     TurnBackTimeline.PlayFromStart();

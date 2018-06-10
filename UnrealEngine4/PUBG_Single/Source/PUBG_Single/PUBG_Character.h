@@ -42,17 +42,17 @@ protected:
     // Called for side to side input
     void MoveRight(float AxisValue);
 
-    // Called when left shift is pressed
-    void RunPressed();
+    // Called when Sprint key is pressed
+    void SprintPressed();
 
-    // Called when left shift is released
-    void RunReleased();
+    // Called when Sprint key is released
+    void SprintReleased();
 
-    // Called when left alt is pressed
-    void AltPressed();
+    // Called when Freelook key is pressed
+    void FreelookPressed();
 
-    // Called when left alt is released
-    void AltReleased();
+    // Called when Freelook key alt is released
+    void FreelookReleased();
 
 private:
     // Camera boom positioning the camera behind the character

@@ -16,10 +16,10 @@ void UPUBG_AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
         // PUBG_Blendspace
         Speed = Velocity.Size();
         Direction = CalculateDirection(Velocity, ActorRotation);
-
+        
         // DefaultAimOffset
         FRotator DeltaRotation = ControlRotation - ActorRotation;
-        Yaw = FMath::ClampAngle(DeltaRotation.Yaw, -90, 90);
-        Pitch = FMath::ClampAngle(DeltaRotation.Pitch, -90, 90);
+        Yaw = FRotator::NormalizeAxis(DeltaRotation.Yaw);
+        Pitch = FRotator::NormalizeAxis(DeltaRotation.Pitch);
     }
 }
