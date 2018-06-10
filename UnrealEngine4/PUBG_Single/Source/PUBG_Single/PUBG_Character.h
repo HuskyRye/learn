@@ -51,10 +51,19 @@ protected:
     // Called when Freelook key is pressed
     void FreelookPressed();
 
-    // Called when Freelook key alt is released
+    // Called when Freelook key is released
     void FreelookReleased();
 
+    // Called when Walk key is pressed
+    void WalkPressed();
+
+    // Called when Walk key is released
+    void WalkReleased();
+
 private:
+    // Movement component used for movement logic in various movement modes
+    UCharacterMovementComponent* CharacterMovement;
+
     // Camera boom positioning the camera behind the character
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, Meta = (AllowPrivateAccess = "true"))
     USpringArmComponent* SpringArm;

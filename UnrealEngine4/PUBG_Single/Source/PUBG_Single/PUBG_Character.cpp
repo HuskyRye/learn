@@ -50,7 +50,7 @@ APUBG_Character::APUBG_Character()
     TurnBackCurve = FindTurnBackCurve.Object;
 
     // CharacterMovement
-    UCharacterMovementComponent* CharacterMovement = GetCharacterMovement();
+    CharacterMovement = GetCharacterMovement();
     CharacterMovement->MaxWalkSpeed = 450;
     CharacterMovement->BrakingFrictionFactor = 0.1;
     CharacterMovement->BrakingDecelerationWalking = 1024;
@@ -101,6 +101,9 @@ void APUBG_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
     PlayerInputComponent->BindAction("Freelook", IE_Pressed, this, &APUBG_Character::FreelookPressed);
     PlayerInputComponent->BindAction("Freelook", IE_Released, this, &APUBG_Character::FreelookReleased);
+
+    PlayerInputComponent->BindAction("Walk", IE_Pressed, this, &APUBG_Character::WalkPressed);
+    PlayerInputComponent->BindAction("Walk", IE_Released, this, &APUBG_Character::WalkReleased);
 }
 
 void APUBG_Character::MoveForward(float AxisValue)
@@ -117,18 +120,18 @@ void APUBG_Character::MoveRight(float AxisValue)
 
 void APUBG_Character::SprintPressed()
 {
-    GetCharacterMovement()->MaxWalkSpeed = 600;
+    CharacterMovement->MaxWalkSpeed = 600;
 }
 
 void APUBG_Character::SprintReleased()
 {
-    GetCharacterMovement()->MaxWalkSpeed = 450;
+    CharacterMovement->MaxWalkSpeed = 450;
 }
 
 void APUBG_Character::FreelookPressed()
 {
     TargetControlRotation = GetControlRotation();
-    GetCharacterMovement()->bUseControllerDesiredRotation = false;
+    CharacterMovement->bUseControllerDesiredRotation = false;
 }
 
 void APUBG_Character::FreelookReleased()
@@ -141,4 +144,14 @@ void APUBG_Character::UpdateController(float Value)
 {
     FRotator NewRotation = FMath::Lerp(CurrentContrtolRotation, TargetControlRotation, Value);
     Controller->SetControlRotation(NewRotation);
+}
+
+void APUBG_Character::WalkPressed()
+{
+    CharacterMovement->MaxWalkSpeed = 150;
+}
+
+void APUBG_Character::WalkReleased()
+{
+    CharacterMovement->MaxWalkSpeed = 450;
 }
