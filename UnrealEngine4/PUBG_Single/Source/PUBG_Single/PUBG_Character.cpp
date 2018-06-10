@@ -1,6 +1,6 @@
 ﻿/*
     Author: 刘臣轩
-    Date: 2018.5.29
+    Date: 2018.6.10
 */
 
 #include "PUBG_Character.h"
