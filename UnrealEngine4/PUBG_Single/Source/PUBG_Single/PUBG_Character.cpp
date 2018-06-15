@@ -10,6 +10,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "UObject/ConstructorHelpers.h"
+#include "Components/CapsuleComponent.h"
+
 
 // Sets default values
 APUBG_Character::APUBG_Character()
@@ -26,12 +28,15 @@ APUBG_Character::APUBG_Character()
     static ConstructorHelpers::FObjectFinder<USkeletalMesh> CharacterMesh(TEXT("/Game/Girl_01/meshes/girl_01_a"));
     USkeletalMeshComponent* Mesh = GetMesh();
     Mesh->SetSkeletalMesh(CharacterMesh.Object);
-    Mesh->SetRelativeLocation(FVector(0, 0, -90));
+    Mesh->SetRelativeLocation(FVector(0, 0, -95));
     Mesh->SetRelativeRotation(FRotator(0, -90, 0));
+
+    // CapsuleComponent
+    GetCapsuleComponent()->SetCapsuleHalfHeight(95, false);
 
     // SpringArm
     SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
-    SpringArm->SetupAttachment(RootComponent);
+    SpringArm->SetupAttachment(Mesh);
     SpringArm->TargetArmLength = 220;
     SpringArm->SetRelativeLocation(FVector(0, 0, 110));
     SpringArm->SocketOffset = FVector(0, 20, 0);
@@ -51,13 +56,22 @@ APUBG_Character::APUBG_Character()
 
     // CharacterMovement
     CharacterMovement = GetCharacterMovement();
+
+    // CharacterMovement - Walk
     CharacterMovement->MaxWalkSpeed = 450;
     CharacterMovement->BrakingFrictionFactor = 0.1;
     CharacterMovement->BrakingDecelerationWalking = 1024;
     CharacterMovement->GroundFriction = 0.1;
+
+    // CharacterMovement - Rotation
     CharacterMovement->bUseControllerDesiredRotation = true;
     CharacterMovement->RotationRate = FRotator(0, 180, 0);
-    
+
+    // CharacterMovement - Crouch
+    CharacterMovement->NavAgentProps.bCanCrouch = true;
+    CharacterMovement->CrouchedHalfHeight = 70;
+    CharacterMovement->MaxWalkSpeedCrouched = 350;
+
 }
 
 // Called when the game starts or when spawned
@@ -73,6 +87,7 @@ void APUBG_Character::BeginPlay()
         TurnBackTimeline.AddInterpFloat(TurnBackCurve, TurnBackTimelineCallBack);
         TurnBackTimeline.SetTimelineFinishedFunc(TurnBackTimelineFinishedCallback);
     }
+    GetCapsuleComponent()->bHiddenInGame = false;
 }
 
 // Called every frame
@@ -104,6 +119,8 @@ void APUBG_Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
     PlayerInputComponent->BindAction("Walk", IE_Pressed, this, &APUBG_Character::WalkPressed);
     PlayerInputComponent->BindAction("Walk", IE_Released, this, &APUBG_Character::WalkReleased);
+
+    PlayerInputComponent->BindAction("Crouch", IE_Pressed, this, &APUBG_Character::CrouchPressed);
 }
 
 void APUBG_Character::MoveForward(float AxisValue)
@@ -121,11 +138,13 @@ void APUBG_Character::MoveRight(float AxisValue)
 void APUBG_Character::SprintPressed()
 {
     CharacterMovement->MaxWalkSpeed = 600;
+    CharacterMovement->MaxWalkSpeedCrouched = 500;
 }
 
 void APUBG_Character::SprintReleased()
 {
     CharacterMovement->MaxWalkSpeed = 450;
+    CharacterMovement->MaxWalkSpeedCrouched = 350;
 }
 
 void APUBG_Character::FreelookPressed()
@@ -148,10 +167,20 @@ void APUBG_Character::UpdateController(float Value)
 
 void APUBG_Character::WalkPressed()
 {
-    CharacterMovement->MaxWalkSpeed = 150;
+    CharacterMovement->MaxWalkSpeed = 200;
+    CharacterMovement->MaxWalkSpeedCrouched = 150;
 }
 
 void APUBG_Character::WalkReleased()
 {
     CharacterMovement->MaxWalkSpeed = 450;
+    CharacterMovement->MaxWalkSpeedCrouched = 350;
+}
+
+void APUBG_Character::CrouchPressed()
+{
+    if (bIsCrouched)
+        UnCrouch();
+    else
+        Crouch();
 }

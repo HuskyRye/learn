@@ -60,6 +60,9 @@ protected:
     // Called when Walk key is released
     void WalkReleased();
 
+    // Called when Crouch key is pressed
+    void CrouchPressed();
+
 private:
     // Movement component used for movement logic in various movement modes
     UCharacterMovementComponent* CharacterMovement;

@@ -36,4 +36,8 @@ protected:
     // Default AimOffset Pitch Value
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "PUBG")
     float Pitch;
+
+    // Is crouching
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "PUBG")
+    bool IsCrouched;
 };

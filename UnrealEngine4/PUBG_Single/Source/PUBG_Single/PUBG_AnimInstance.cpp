@@ -5,6 +5,9 @@
 
 #include "PUBG_AnimInstance.h"
 
+#include "GameFramework/Pawn.h"
+#include "GameFramework/PawnMovementComponent.h"
+
 void UPUBG_AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
     APawn* Pawn = TryGetPawnOwner();
@@ -21,5 +24,8 @@ void UPUBG_AnimInstance::NativeUpdateAnimation(float DeltaSeconds)
         FRotator DeltaRotation = ControlRotation - ActorRotation;
         Yaw = FRotator::NormalizeAxis(DeltaRotation.Yaw);
         Pitch = FRotator::NormalizeAxis(DeltaRotation.Pitch);
+        
+        // Crouch
+        IsCrouched = Pawn->GetMovementComponent()->IsCrouching();
     }
 }
